@@ -45,22 +45,6 @@ this.personalNum=personalNum;
 
     }
     //------------methods--------------
-    public boolean match(String key)
-    {
+    public boolean match(String key) { return super.match(key) || key.contains(this.personalNum); }
 
-    return (super.match(key) || key.contains(this.personalNum)) ? true : false;
-
-    }
-
-    protected boolean validateData() {
-        return false;
-    }
-
-    protected void commit() {
-
-    }
-
-    protected void rollBack() {
-
-    }
 }

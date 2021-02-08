@@ -36,10 +36,8 @@ public abstract class ClubAbstractEntity extends JFrame implements Serializable
         setLocationRelativeTo(null);
         setVisible(false);
     }
-    //-----------methods----------
     protected void addToCenter(Component guiComponent)
     {
-
         this.mainPanel.add(guiComponent,BorderLayout.CENTER);
     }
     private class ButtonsHandler implements ActionListener,Serializable
@@ -48,15 +46,14 @@ public abstract class ClubAbstractEntity extends JFrame implements Serializable
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == okButton && validateData()){
                 commit();
-                mainPanel.setVisible(false); //TO DO
+                setVisible(false);
             }
             if (e.getSource() == cancelButton){
                 rollBack();
-                mainPanel.setVisible(false); //TO DO
+                setVisible(false);
             }
         }
     }
-    //absracts:
     public abstract boolean match(String key);
     protected abstract boolean validateData();
     protected abstract void commit();

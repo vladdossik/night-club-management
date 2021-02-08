@@ -10,9 +10,10 @@ public class Person extends ClubAbstractEntity implements Serializable
     protected String name;
     protected String surname;
     protected String tel;
-
+    JTextField[] textFields;
+    String[] info=new String[4];
     public Person(String id,String name,String surname,String tel)
-    {String[] info=new String[4];
+    {
         this.id=id;
         this.name=name;
         this.surname=surname;
@@ -22,7 +23,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         info[2]=surname;
         info[3]=tel;
         JLabel[] labels={new JLabel("Id", JLabel.RIGHT),new JLabel("Name", JLabel.RIGHT),new JLabel("Surname", JLabel.RIGHT),new JLabel("Tel", JLabel.RIGHT)};
-        JTextField[] textFields=new JTextField[labels.length];
+        textFields=new JTextField[labels.length];
         JPanel container=new JPanel();
         container.setLayout(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(labels.length, 1));
@@ -67,6 +68,8 @@ public class Person extends ClubAbstractEntity implements Serializable
 
     @Override
     protected void rollBack() {
-
+        for (int i = 0; i <textFields.length; i++) {
+            textFields[i]=new JTextField(info[i]);
+        }
     }
 }

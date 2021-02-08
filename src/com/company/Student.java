@@ -44,22 +44,10 @@ this.studentID=studentID;
         addToCenter(wrapper);
 
     }
-    //------------methods-----------------
+
     public boolean match(String key)
     {
-        return (super.match(key) || studentID.contains(key)) ? true : false ;
-    }
-
-    protected boolean validateData() {
-        return false;
-    }
-
-    protected void commit() {
-
-    }
-
-    protected void rollBack() {
-
+        return super.match(key) || studentID.contains(key);
     }
 
 }
