@@ -8,10 +8,11 @@ public class Student extends Person implements Serializable
 {
     //-----------data fields--------------
     protected String studentID;
-   //private static final long serialVersionUID = -1498673561745301838L;
+    //private static final long serialVersionUID = -1498673561745301838L;
     public Student(String id, String name, String surname, String tel,String studentID)
     {
         super(id,name,surname,tel);
+this.studentID=studentID;
         String[] info=new String[5];
         info[0]=id;
         info[1]=name;
@@ -38,7 +39,6 @@ public class Student extends Person implements Serializable
             fieldPanel.add(p);
         }
 
-        setSize(450,220);
         JPanel wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);

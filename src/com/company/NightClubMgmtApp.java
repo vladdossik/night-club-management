@@ -13,8 +13,8 @@ public class NightClubMgmtApp implements Serializable
         clubbers = new ArrayList<>();
         sc = new Scanner(System.in);
 
-        loadClubbersDBFromFile();
-       // writeClubbersDBtoFile();
+        //loadClubbersDBFromFile();
+        writeClubbersDBtoFile();
         manipulateDB();
 
     }
@@ -37,9 +37,10 @@ public class NightClubMgmtApp implements Serializable
                 }
             if(!found)
                 System.out.printf("Clubber with key %s does not exist%n", input);
-            else found = !found;
+            else found =false;
         }
     }// End of method manipulateDB
+
     private void loadClubbersDBFromFile()
     {
        FileInputStream fis=null;
@@ -48,14 +49,13 @@ public class NightClubMgmtApp implements Serializable
             fis=new FileInputStream(("clubbers.dat"));
             in=new ObjectInputStream(fis);
 
-while(true) {
-    try {
-        clubbers.add((ClubAbstractEntity) in.readObject());
-    }
-    catch(Exception e){
-        break;
-    }
-}
+          while (true) {
+              try {
+                  clubbers.add((ClubAbstractEntity) in.readObject());
+              } catch (Exception e) {
+                  break;
+              }
+          }
             in.close();
         }
         catch(IOException e){
@@ -71,7 +71,9 @@ for(ClubAbstractEntity clubber:clubbers){
     { clubbers.add(new Person("0-2423535|1", "Mark", "Mc'Cormic","+(1)4-9520205"));
         clubbers.add(new Soldier("0-2223335|1", "Zohar", "Couper-Berg","+(44)206-8208167", "O/4684109"));
         clubbers.add(new Student("2-5554445|3", "Avi", "Avrahami-O'Mally","+(972)50-6663210", "SCE/12345"));
+
         String filename="clubbers.dat";
+
       FileOutputStream fos=null;
       ObjectOutputStream out =null;
       try{
