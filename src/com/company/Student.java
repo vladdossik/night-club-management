@@ -44,10 +44,31 @@ this.studentID=studentID;
         addToCenter(wrapper);
 
     }
-
     public boolean match(String key)
     {
         return super.match(key) || studentID.contains(key);
     }
+    protected void rollBack() {
+        for (int i = 0; i <textFields.length; i++) {
+            textFields[i]=new JTextField(info[i]);
+        }
+    }
 
+    @Override
+    protected boolean validateData() {
+        boolean flag=true;
+        System.out.println(textFields.length);
+        for (int i = 0; i <textFields.length; i++) {
+            if(!textFields[i].getText().equals(info[i])){
+                if(!labels[i].getText().contains("*")) {
+                    labels[i].setText(labels[i].getText() +"*");
+                    flag = false;
+                }
+            }
+            else if(labels[i].getText().contains("*")){
+                labels[i].setText(labels[i].getText().replace("*",""));
+            }
+        }
+        return flag;
+    }
 }
