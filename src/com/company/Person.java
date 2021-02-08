@@ -34,7 +34,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         {
 
             textFields[i]=new JTextField(info[i],30);
-            labels[i].setLabelFor(textFields[i]);
+           labels[i].setLabelFor(textFields[i]);
             labelPanel.add(labels[i]);
             JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT));
             p.add(textFields[i]);

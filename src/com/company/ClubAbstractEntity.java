@@ -22,13 +22,9 @@ public abstract class ClubAbstractEntity extends JFrame implements Serializable
         this.okButton=new JButton("OK");
         this.cancelButton=new JButton("CANCEL");
         this.handler=new ButtonsHandler();
-
         mainPanel.setLayout(new BorderLayout());
-
         this.okButton.addActionListener(handler);
         this.cancelButton.addActionListener(handler);
-
-
         subJP.add(cancelButton);
         subJP.add(okButton);
         mainPanel.add(subJP,BorderLayout.SOUTH);
