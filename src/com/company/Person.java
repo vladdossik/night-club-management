@@ -15,6 +15,7 @@ public class Person extends ClubAbstractEntity implements Serializable
     String[] info=new String[4];
     JLabel[] labels;
     JLabel[] star;
+
     public Person(String id,String name,String surname,String tel)
     {
         this.id=id;
@@ -44,6 +45,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         for(int i=0;i<labels.length;i++)
         {
            starPanel.add(star[i]);
+            star[i].setVisible(false);
             textFields[i]=new JTextField(info[i],30);
            labels[i].setLabelFor(textFields[i]);
             labelPanel.add(labels[i]);
@@ -55,6 +57,9 @@ public class Person extends ClubAbstractEntity implements Serializable
         JPanel wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
+    }
+    public String getName(){
+        return name;
     }
     @Override
     public boolean match(String key) {
@@ -87,6 +92,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         name=info[1];
         surname=info[2];
         tel=info[3];
+
     }
     @Override
     protected void rollBack() {

@@ -44,10 +44,12 @@ public abstract class ClubAbstractEntity extends JFrame implements Serializable
             if (e.getSource() == okButton && validateData()){
                 commit();
                 setVisible(false);
+                new NightClubMgmtApp();
             }
             if (e.getSource() == cancelButton){
                 rollBack();
                 setVisible(false);
+                new NightClubMgmtApp();
             }
         }
     }

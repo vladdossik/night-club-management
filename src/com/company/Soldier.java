@@ -71,6 +71,7 @@ this.personalNum=personalNum;
         surname=info[2];
         tel=info[3];
         personalNum=info[4];
+
     }
     @Override
     protected boolean validateData() {
