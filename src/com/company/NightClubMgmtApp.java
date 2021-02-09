@@ -7,16 +7,12 @@ public class NightClubMgmtApp implements Serializable
 {
     private ArrayList<ClubAbstractEntity> clubbers;
     private Scanner sc;
-
     public NightClubMgmtApp()
     {
         clubbers = new ArrayList<>();
         sc = new Scanner(System.in);
-
         loadClubbersDBFromFile();
-       // writeClubbersDBtoFile();
         manipulateDB();
-
     }
     private void manipulateDB()
     {
@@ -39,8 +35,7 @@ public class NightClubMgmtApp implements Serializable
                 System.out.printf("Clubber with key %s does not exist%n", input);
             else found =false;
         }
-    }// End of method manipulateDB
-
+    }
     private void loadClubbersDBFromFile()
     {
        FileInputStream fis=null;
@@ -61,17 +56,13 @@ public class NightClubMgmtApp implements Serializable
         catch(IOException e){
             e.printStackTrace();
         }
-
     }
     private void writeClubbersDBtoFile()
     {
-        /*
         clubbers.add(new Person("0-2423535|1", "Mark", "Mc'Cormic","+(1)4-9520205"));
         clubbers.add(new Soldier("0-2223335|1", "Zohar", "Couper-Berg","+(44)206-8208167", "O/4684109"));
         clubbers.add(new Student("2-5554445|3", "Avi", "Avrahami-O'Mally","+(972)50-6663210", "SCE/12345"));
-        */
         String filename="clubbers.dat";
-
       FileOutputStream fos=null;
       ObjectOutputStream out =null;
       try{
@@ -89,5 +80,4 @@ public class NightClubMgmtApp implements Serializable
         public static void main(String[] args) {
             NightClubMgmtApp application = new NightClubMgmtApp();
         }
-
 }

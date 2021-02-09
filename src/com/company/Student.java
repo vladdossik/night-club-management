@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.*;
 public class Student extends Person implements Serializable
 {
-    //-----------data fields--------------
     protected String studentID;
     JLabel[] star;
     JLabel[] labels;
@@ -49,11 +48,9 @@ this.studentID=studentID;
             p.add(textFields[i]);
             fieldPanel.add(p);
         }
-
         JPanel wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
-
     }
     public boolean match(String key)
     {
@@ -72,6 +69,11 @@ this.studentID=studentID;
         for (int i = 0; i < labels.length; i++) {
             info[i]=textFields[i].getText();
         }
+        id=info[0];
+        name=info[1];
+        surname=info[2];
+        tel=info[3];
+        studentID=info[4];
     }
     @Override
     protected boolean validateData() {
@@ -88,6 +90,4 @@ this.studentID=studentID;
         }
         return flag;
     }
-
-
 }

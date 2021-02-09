@@ -8,13 +8,10 @@ import java.io.Serializable;
 
 public abstract class ClubAbstractEntity extends JFrame implements Serializable
 {
-    //-----------data fields---------
     protected JPanel mainPanel;
     protected JButton okButton;
     protected JButton cancelButton;
     private ButtonsHandler handler;
-
-    //-----------constructors--------
     public ClubAbstractEntity()
     {
         JPanel subJP = new JPanel();

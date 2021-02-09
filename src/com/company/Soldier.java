@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 public class Soldier extends Person implements Serializable
 {
-
    protected String personalNum;
     JTextField[] textFields;
     String[] info;
@@ -49,13 +48,10 @@ this.personalNum=personalNum;
             p.add(textFields[i]);
             fieldPanel.add(p);
         }
-
         JPanel wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
-
     }
-    //------------methods--------------
     public boolean match(String key) { return super.match(key) || key.contains(this.personalNum); }
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {
@@ -70,6 +66,11 @@ this.personalNum=personalNum;
         for (int i = 0; i < labels.length; i++) {
             info[i]=textFields[i].getText();
         }
+        id=info[0];
+        name=info[1];
+        surname=info[2];
+        tel=info[3];
+        personalNum=info[4];
     }
     @Override
     protected boolean validateData() {
@@ -85,6 +86,4 @@ this.personalNum=personalNum;
         }
         return flag;
     }
-
-
 }

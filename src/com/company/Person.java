@@ -14,7 +14,6 @@ public class Person extends ClubAbstractEntity implements Serializable
     JTextField[] textFields;
     String[] info=new String[4];
     JLabel[] labels;
-
     JLabel[] star;
     public Person(String id,String name,String surname,String tel)
     {
@@ -42,13 +41,9 @@ public class Person extends ClubAbstractEntity implements Serializable
         container.add(labelPanel, BorderLayout.WEST);
         container.add(fieldPanel, BorderLayout.CENTER);
         container.add(starPanel,BorderLayout.LINE_END);
-        //TODO add stars to all lines ( have solution to add stars to labelpanel but without red colour )
-        //TODO find solution to arrange all elements
-        //TODO add documentation using java API
         for(int i=0;i<labels.length;i++)
         {
            starPanel.add(star[i]);
-           star[i].setVisible(false);
             textFields[i]=new JTextField(info[i],30);
            labels[i].setLabelFor(textFields[i]);
             labelPanel.add(labels[i]);
@@ -61,7 +56,6 @@ public class Person extends ClubAbstractEntity implements Serializable
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
     }
-
     @Override
     public boolean match(String key) {
         if(id.contains(key)||name.contains(key)||surname.contains(key)||tel.contains(key)){
@@ -69,7 +63,6 @@ public class Person extends ClubAbstractEntity implements Serializable
         }
         else return false;
     }
-
     @Override
     protected boolean validateData() {
         boolean flag=true;
@@ -85,15 +78,16 @@ public class Person extends ClubAbstractEntity implements Serializable
         }
         return flag;
     }
-
     @Override
     protected void commit() {
         for (int i = 0; i < labels.length; i++) {
             info[i]=textFields[i].getText();
         }
-
+        id=info[0];
+        name=info[1];
+        surname=info[2];
+        tel=info[3];
     }
-
     @Override
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {
