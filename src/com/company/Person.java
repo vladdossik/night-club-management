@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.Serializable;
 
@@ -13,8 +14,8 @@ public class Person extends ClubAbstractEntity implements Serializable
     JTextField[] textFields;
     String[] info=new String[4];
     JLabel[] labels;
-    JLabel star=new JLabel("*");
 
+    JLabel[] star;
     public Person(String id,String name,String surname,String tel)
     {
         this.id=id;
@@ -28,29 +29,33 @@ public class Person extends ClubAbstractEntity implements Serializable
          labels= new JLabel[]{new JLabel("Id", JLabel.RIGHT), new JLabel("Name", JLabel.RIGHT), new JLabel("Surname", JLabel.RIGHT), new JLabel("Tel", JLabel.RIGHT)};
         textFields=new JTextField[labels.length];
         JPanel container=new JPanel();
-        container.setLayout(new BorderLayout());
-        JPanel labelPanel = new JPanel(new GridLayout(labels.length, 1));
-        JPanel fieldPanel = new JPanel(new GridLayout(labels.length, 1));
-        JPanel starPanel=new JPanel(new GridLayout(labels.length,1));
+        star=new JLabel[labels.length];
+        for (int i = 0; i < labels.length; i++) {
+            star[i]=new JLabel("*",JLabel.RIGHT);
+            star[i].setForeground(Color.RED);
+        }
+        container.setLayout(new BorderLayout(5,5));
+        container.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        JPanel labelPanel = new JPanel(new GridLayout(4, 1, 1, 5));
+        JPanel fieldPanel = new JPanel(new GridLayout(4, 1, 1, 5));
+        JPanel starPanel=new JPanel(new GridLayout(4, 1, 1, 5));
         container.add(labelPanel, BorderLayout.WEST);
         container.add(fieldPanel, BorderLayout.CENTER);
-        container.add(starPanel,BorderLayout.EAST);
-        star.setForeground(Color.RED);
+        container.add(starPanel,BorderLayout.LINE_END);
         //TODO add stars to all lines ( have solution to add stars to labelpanel but without red colour )
         //TODO find solution to arrange all elements
         //TODO add documentation using java API
         for(int i=0;i<labels.length;i++)
         {
-            starPanel.add(star);
+           starPanel.add(star[i]);
+           star[i].setVisible(false);
             textFields[i]=new JTextField(info[i],30);
            labels[i].setLabelFor(textFields[i]);
             labelPanel.add(labels[i]);
             JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT));
             p.add(textFields[i]);
             fieldPanel.add(p);
-           // starPanel.add(star);
         }
-
         setSize(450,220);
         JPanel wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
@@ -67,19 +72,15 @@ public class Person extends ClubAbstractEntity implements Serializable
 
     @Override
     protected boolean validateData() {
-      JLabel star=new JLabel("*");
-      star.setForeground(Color.RED);
         boolean flag=true;
         for (int i = 0; i <textFields.length; i++) {
-            if(!textFields[i].getText().equals(info[i])){
-                if(!labels[i].getText().contains("*")) {
-                    labels[i].setText(labels[i].getText() +"*");
-                    flag = false;
-                }
+            if(textFields[i].getText().contains("*")||textFields[i].getText().isEmpty()){
+                star[i].setVisible(true);
+                flag = false;
             }
-            else if(labels[i].getText().contains("*")){
-               labels[i].add(star);
 
+            else if(star[i].isVisible()){
+                star[i].setVisible(false);
             }
         }
         return flag;
@@ -87,13 +88,20 @@ public class Person extends ClubAbstractEntity implements Serializable
 
     @Override
     protected void commit() {
+        for (int i = 0; i < labels.length; i++) {
+            info[i]=textFields[i].getText();
+        }
 
     }
 
     @Override
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {
-            textFields[i]=new JTextField(info[i]);
+            textFields[i].setText(info[i]);
+            if(star[i].isVisible()){
+                star[i].setVisible(false);
+            }
         }
     }
+
 }

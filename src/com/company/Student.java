@@ -8,29 +8,40 @@ public class Student extends Person implements Serializable
 {
     //-----------data fields--------------
     protected String studentID;
-    //private static final long serialVersionUID = -1498673561745301838L;
+    JLabel[] star;
+    JLabel[] labels;
+    JTextField[] textFields;
+    String[] info;
     public Student(String id, String name, String surname, String tel,String studentID)
     {
         super(id,name,surname,tel);
 this.studentID=studentID;
-        String[] info=new String[5];
+        info=new String[5];
         info[0]=id;
         info[1]=name;
         info[2]=surname;
         info[3]=tel;
         info[4]=studentID;
-        JLabel[] labels={new JLabel("Id", JLabel.RIGHT),new JLabel("Name", JLabel.RIGHT),new JLabel("Surname", JLabel.RIGHT),new JLabel("Tel", JLabel.RIGHT),new JLabel("studentId",JLabel.RIGHT)};
-        JTextField[] textFields=new JTextField[labels.length];
+         labels= new JLabel[]{new JLabel("Id", JLabel.RIGHT), new JLabel("Name", JLabel.RIGHT), new JLabel("Surname", JLabel.RIGHT), new JLabel("Tel", JLabel.RIGHT), new JLabel("studentId", JLabel.RIGHT)};
+         textFields=new JTextField[labels.length];
         JPanel container=new JPanel();
-        container.setLayout(new BorderLayout());
-        JPanel labelPanel = new JPanel(new GridLayout(labels.length, 1));
-        JPanel fieldPanel = new JPanel(new GridLayout(labels.length, 1));
+       star=new JLabel[labels.length];
+        for (int i = 0; i < labels.length; i++) {
+            star[i]=new JLabel("*",JLabel.RIGHT);
+            star[i].setForeground(Color.RED);
+        }
+        container.setLayout(new BorderLayout(5,5));
+        container.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        JPanel labelPanel = new JPanel(new GridLayout(5, 1, 1, 5));
+        JPanel fieldPanel = new JPanel(new GridLayout(5, 1, 1, 5));
+        JPanel starPanel=new JPanel(new GridLayout(5, 1, 1, 5));
         container.add(labelPanel, BorderLayout.WEST);
         container.add(fieldPanel, BorderLayout.CENTER);
-
+        container.add(starPanel,BorderLayout.EAST);
         for(int i=0;i<labels.length;i++)
         {
-
+            starPanel.add(star[i]);
+            star[i].setVisible(false);
             textFields[i]=new JTextField(info[i],30);
             labels[i].setLabelFor(textFields[i]);
             labelPanel.add(labels[i]);
@@ -50,25 +61,33 @@ this.studentID=studentID;
     }
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {
-            textFields[i]=new JTextField(info[i]);
+            textFields[i].setText(info[i]);
+            if(star[i].isVisible()){
+                star[i].setVisible(false);
+            }
         }
     }
-
+    @Override
+    protected void commit() {
+        for (int i = 0; i < labels.length; i++) {
+            info[i]=textFields[i].getText();
+        }
+    }
     @Override
     protected boolean validateData() {
         boolean flag=true;
-        System.out.println(textFields.length);
         for (int i = 0; i <textFields.length; i++) {
-            if(!textFields[i].getText().equals(info[i])){
-                if(!labels[i].getText().contains("*")) {
-                    labels[i].setText(labels[i].getText() +"*");
-                    flag = false;
-                }
+            if(textFields[i].getText().contains("*")||textFields[i].getText().isEmpty()){
+                star[i].setVisible(true);
+                flag = false;
             }
-            else if(labels[i].getText().contains("*")){
-                labels[i].setText(labels[i].getText().replace("*",""));
+
+            else if(star[i].isVisible()){
+                star[i].setVisible(false);
             }
         }
         return flag;
     }
+
+
 }

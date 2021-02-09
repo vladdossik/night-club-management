@@ -13,8 +13,8 @@ public class NightClubMgmtApp implements Serializable
         clubbers = new ArrayList<>();
         sc = new Scanner(System.in);
 
-        //loadClubbersDBFromFile();
-        writeClubbersDBtoFile();
+        loadClubbersDBFromFile();
+       // writeClubbersDBtoFile();
         manipulateDB();
 
     }
@@ -61,17 +61,15 @@ public class NightClubMgmtApp implements Serializable
         catch(IOException e){
             e.printStackTrace();
         }
-/*
-for(ClubAbstractEntity clubber:clubbers){
-    System.out.println(clubber);
-}
- */
+
     }
     private void writeClubbersDBtoFile()
-    { clubbers.add(new Person("0-2423535|1", "Mark", "Mc'Cormic","+(1)4-9520205"));
+    {
+        /*
+        clubbers.add(new Person("0-2423535|1", "Mark", "Mc'Cormic","+(1)4-9520205"));
         clubbers.add(new Soldier("0-2223335|1", "Zohar", "Couper-Berg","+(44)206-8208167", "O/4684109"));
         clubbers.add(new Student("2-5554445|3", "Avi", "Avrahami-O'Mally","+(972)50-6663210", "SCE/12345"));
-
+        */
         String filename="clubbers.dat";
 
       FileOutputStream fos=null;
