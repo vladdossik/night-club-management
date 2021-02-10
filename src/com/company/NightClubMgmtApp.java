@@ -24,11 +24,7 @@ selectAction();
                 new String[]{"Search", "Add","Exit"},
                 "default");
         if(select==0) {
-
              loadClubbersDBFromFile();
-            for(ClubAbstractEntity clubber:clubbers){
-                System.out.println(clubber);
-            }
             manipulateDB();
         }else if(select==1){
             addClubber();
