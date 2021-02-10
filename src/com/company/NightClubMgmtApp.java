@@ -6,12 +6,14 @@ import java.util.*;
 import java.io.Serializable;
 public class NightClubMgmtApp implements Serializable
 {
-    private ArrayList<ClubAbstractEntity> clubbers=new ArrayList<>();
+    static private ArrayList<ClubAbstractEntity> clubbers=new ArrayList<>();
     private Scanner sc;
     public NightClubMgmtApp()
     {
-
-//loadClubbersDBFromFile();
+loadClubbersDBFromFile();
+selectAction();
+    }
+    private void selectAction(){
         JPanel panel=new JPanel();
         int select=JOptionPane.showOptionDialog(null,
                 "Search or add clubber?",
@@ -21,18 +23,20 @@ public class NightClubMgmtApp implements Serializable
                 null,
                 new String[]{"Search", "Add","Exit"},
                 "default");
-if(select==0) {
-   // writeClubbersDBtoFile();
-   // loadClubbersDBFromFile();
-    manipulateDB();
-}else if(select==1){
-    addClubber();
-}
-else if(select==2){
-    writeClubbersDBtoFile();
-    System.exit(0);
-}
-writeClubbersDBtoFile();
+        if(select==0) {
+
+             loadClubbersDBFromFile();
+            for(ClubAbstractEntity clubber:clubbers){
+                System.out.println(clubber);
+            }
+            manipulateDB();
+        }else if(select==1){
+            addClubber();
+        }
+        else if(select==2){
+            writeClubbersDBtoFile();
+            System.exit(0);
+        }
     }
     private void manipulateDB()
     {
@@ -52,13 +56,13 @@ writeClubbersDBtoFile();
     }
     if(input==null){
 
-        new NightClubMgmtApp();
+        selectAction();
     }
     JOptionPane.showMessageDialog(panel,
             "Clubber with key "+input+" does not exist",
             " NOT FOUND",
             JOptionPane.INFORMATION_MESSAGE);
-    new NightClubMgmtApp();
+   selectAction();
     }
     private void addClubber(){
         int select=JOptionPane.showOptionDialog(null,
@@ -70,17 +74,19 @@ writeClubbersDBtoFile();
                 new String[]{"Person", "Student","Soldier"},
                 "default");
         if(select==0){
-            clubbers.add(new Person("id","name","surname","tel"));
+            clubbers.add(new Person(" "," "," "," "));
+            System.out.println(clubbers.get(clubbers.size()-1));
         }
         else if(select==1){
-            clubbers.add(new Student("id", "name", "surname","tel", "studentId"));
+            clubbers.add(new Student(" ", " ", " "," ", " "));
         }
         else if(select==2){
-            clubbers.add(new Soldier("id", "name", "surname","tel", "personalNum"));
+            clubbers.add(new Soldier(" ", " ", " "," ", " "));
         }
         clubbers.get(clubbers.size()-1).setVisible(true);
         clubbers.get(clubbers.size()-1).cancelButton.setVisible(false);
         //clubbers.get(clubbers.size()-1).commit();
+       // writeClubbersDBtoFile();
     }
     private void loadClubbersDBFromFile()
     {
@@ -105,14 +111,12 @@ writeClubbersDBtoFile();
     }
     private void writeClubbersDBtoFile()
     {
-        /*
+/*
     clubbers.add(new Person("0-2423535|1", "Mark", "Mc'Cormic","+(1)4-9520205"));
         clubbers.add(new Soldier("0-2223335|1", "Zohar", "Couper-Berg","+(44)206-8208167", "O/4684109"));
         clubbers.add(new Student("2-5554445|3", "Avi", "Avrahami-O'Mally","+(972)50-6663210", "SCE/12345"));
-        */
-        for(ClubAbstractEntity clubber:clubbers){
-            System.out.println(clubber.getName());
-        }
+*/
+
         String filename="clubbers.dat";
       FileOutputStream fos=null;
       ObjectOutputStream out =null;
@@ -130,6 +134,5 @@ writeClubbersDBtoFile();
     }
         public static void main(String[] args) {
             NightClubMgmtApp application = new NightClubMgmtApp();
-application.loadClubbersDBFromFile();
         }
 }
