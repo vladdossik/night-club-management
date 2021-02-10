@@ -4,11 +4,16 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.io.Serializable;
+
+/**
+ *This is the main class of the application from which all manipulations with the club members take place.
+ */
 public class NightClubMgmtApp implements Serializable
-{
+{/** Arraylist to save clubbers*/
     static private ArrayList<ClubAbstractEntity> clubbers=new ArrayList<>();
-    private Scanner sc;
+    /** used to control write once from a file*/
     static boolean LoadedFromFile=false;
+     /**Constructor */
     public NightClubMgmtApp()
     {
         if(!LoadedFromFile) {
@@ -17,6 +22,11 @@ public class NightClubMgmtApp implements Serializable
         }
 selectAction();
     }
+
+    /**
+     * Action selection method.
+     * Available actions: search, add, exit
+     */
     public  void selectAction(){
         JPanel panel=new JPanel();
         for(ClubAbstractEntity clubber:clubbers){
@@ -40,6 +50,14 @@ selectAction();
             System.exit(0);
         }
     }
+
+    /**
+     *Club member search method.
+     * <p></p>
+     *if the user types exit, the file write method is called and the program is closed.
+     * <p></p>
+     *If the user enters a search key, then depending on the entered value, a club member or a message stating that not found is displayed.
+     */
     private void manipulateDB()
     {
         JPanel panel=new JPanel();
@@ -66,6 +84,12 @@ selectAction();
             JOptionPane.INFORMATION_MESSAGE);
    selectAction();
     }
+
+    /**
+     *Method for adding new users. User can choose which member he can to add.
+     * Available members:Person, Student,Soldier
+     * After selecting a member, a window will appear to fill in his data
+     */
     private void addClubber(){
         int select=JOptionPane.showOptionDialog(null,
                 "Which clubber you want to add?",
@@ -76,6 +100,7 @@ selectAction();
                 new String[]{"Person", "Student","Soldier"},
                 "default");
         if(select==0){
+
             clubbers.add(new Person(" "," "," "," "));
             System.out.println(clubbers.get(clubbers.size()-1));
         }
@@ -88,6 +113,11 @@ selectAction();
         clubbers.get(clubbers.size()-1).setVisible(true);
             clubbers.get(clubbers.size() - 1).cancelButton.setVisible(false);
     }
+
+    /**
+     *Method for reading objects from a file.
+     * @exception if file not found
+     */
     private void loadClubbersDBFromFile()
     {
        FileInputStream fis=null;
@@ -109,6 +139,10 @@ selectAction();
             e.printStackTrace();
         }
     }
+
+    /**
+     * Method for writing objects into a file.
+     */
     private void writeClubbersDBtoFile()
     {
 /*
@@ -116,7 +150,6 @@ selectAction();
         clubbers.add(new Soldier("0-2223335|1", "Zohar", "Couper-Berg","+(44)206-8208167", "O/4684109"));
         clubbers.add(new Student("2-5554445|3", "Avi", "Avrahami-O'Mally","+(972)50-6663210", "SCE/12345"));
 */
-
         String filename="clubbers.dat";
       FileOutputStream fos=null;
       ObjectOutputStream out =null;
