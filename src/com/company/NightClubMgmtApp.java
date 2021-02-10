@@ -8,13 +8,20 @@ public class NightClubMgmtApp implements Serializable
 {
     static private ArrayList<ClubAbstractEntity> clubbers=new ArrayList<>();
     private Scanner sc;
+    static boolean LoadedFromFile=false;
     public NightClubMgmtApp()
     {
-loadClubbersDBFromFile();
+        if(!LoadedFromFile) {
+            loadClubbersDBFromFile();
+            LoadedFromFile=true;
+        }
 selectAction();
     }
-    private void selectAction(){
+    public  void selectAction(){
         JPanel panel=new JPanel();
+        for(ClubAbstractEntity clubber:clubbers){
+            clubber.cancelButton.setVisible(true);
+        }
         int select=JOptionPane.showOptionDialog(null,
                 "Search or add clubber?",
                 "",
@@ -24,7 +31,6 @@ selectAction();
                 new String[]{"Search", "Add","Exit"},
                 "default");
         if(select==0) {
-             loadClubbersDBFromFile();
             manipulateDB();
         }else if(select==1){
             addClubber();
@@ -80,9 +86,7 @@ selectAction();
             clubbers.add(new Soldier(" ", " ", " "," ", " "));
         }
         clubbers.get(clubbers.size()-1).setVisible(true);
-        clubbers.get(clubbers.size()-1).cancelButton.setVisible(false);
-        //clubbers.get(clubbers.size()-1).commit();
-       // writeClubbersDBtoFile();
+            clubbers.get(clubbers.size() - 1).cancelButton.setVisible(false);
     }
     private void loadClubbersDBFromFile()
     {
