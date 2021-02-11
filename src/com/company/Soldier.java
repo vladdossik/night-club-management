@@ -182,6 +182,26 @@ this.personalNum=personalNum;
                 flag=false;
             }
         }
+        //-----for telephone----
+
+        //-----for personal num----
+        int letterscount=0;
+        digitcount=0;
+        for(char c:textFields[4].getText().toCharArray()){
+            if(c=='C'||c=='O'||c=='R'){
+                if(!Character.isLowerCase(c)&&!Character.isDigit(c)){
+                   letterscount++;
+                }
+                if(Character.isDigit(c)){
+                    digitcount++;
+                }
+            }
+        }
+        if(letterscount!=3||digitcount!=7){
+            flag=false;
+            star[4].setVisible(true);
+        }
+        //-----for person num------
         if(flag){
             for(int i=0;i<textFields.length;i++){
                 star[i].setVisible(false);

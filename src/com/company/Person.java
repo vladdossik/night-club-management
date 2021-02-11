@@ -72,7 +72,7 @@ public class Person extends ClubAbstractEntity implements Serializable
     }
     /**
      *
-     * @param key is s serch key
+     * @param key is s search key
      * @return contains or not
      */
     @Override
@@ -89,7 +89,9 @@ public class Person extends ClubAbstractEntity implements Serializable
      */
     @Override
     protected boolean validateData() {
+        //TODO check for all textfields for all classes
         boolean flag=true;
+        int checkall[]={0,0,0,0};
         int digitcount=0;
         //-----for id----
         for(char c:textFields[0].getText().toCharArray()) {// for id
@@ -97,23 +99,24 @@ public class Person extends ClubAbstractEntity implements Serializable
                 digitcount++;
             }
         }
-        if(!textFields[0].getText().contains("|")||!textFields[0].getText().contains("-")){
+        if(!textFields[0].getText().contains("|")||!textFields[0].getText().contains("-")||digitcount!=9){
             star[0].setVisible(true);
-            flag=false;
+           checkall[0]=0;
         }
-        if(digitcount!=9){
-            star[0].setVisible(true);
-            flag=false;
+        else {
+            star[0].setVisible(false);
+            checkall[0]=1;
+
         }
         //-----for id----
-
         //---------for name--------
         for(char c:textFields[1].getText().toCharArray()) {
             if (Character.isDigit(c)) {
                 star[1].setVisible(true);
-                flag = false;
+                checkall[1]=0;
             }
         }
+
             String checkiflowercase = textFields[1].getText();
             checkiflowercase.toLowerCase();
             if (textFields[1].getText() == checkiflowercase) {
@@ -123,12 +126,13 @@ public class Person extends ClubAbstractEntity implements Serializable
         //----------for name-------
 
         //--------for surname-----
-            for(char c:textFields[1].getText().toCharArray()) {
+            for(char c:textFields[2].getText().toCharArray()) {
                 if (Character.isDigit(c)) {
-                    star[1].setVisible(true);
+                    star[2].setVisible(true);
                     flag = false;
                 }
             }
+
                 checkiflowercase = textFields[2].getText();
                 checkiflowercase.toLowerCase();
                 if (textFields[2].getText() == checkiflowercase) {

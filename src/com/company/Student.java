@@ -176,19 +176,44 @@ this.studentID=studentID;
             star[3].setVisible(true);
             flag=false;
         }
+        else star[4].setVisible(false);
         //------for telephone------
+
+        //----------for telephone-------
+
+        //---------- for studentId------
+        bracketscount=0;
+        digitcount=0;
+        int countCapitalLetters=0;
+       for(char c:textFields[4].getText().toCharArray()){
+           if(!Character.isLowerCase(c)&&!Character.isDigit(c)){
+               countCapitalLetters++;
+           }
+           if(Character.isDigit(c)){
+               digitcount++;
+           }
+           if(c=='/'){
+               bracketscount++;
+           }
+       }
+       if(countCapitalLetters!=3||bracketscount!=1||digitcount!=5){
+           star[4].setVisible(true);
+
+       }
+       else star[4].setVisible(false);
+        //----------for studentId-------
         for(int i=0;i<textFields.length;i++){
             if(textFields[i].getText().isEmpty()){
                 star[i].setVisible(true);
                 flag=false;
             }
+
         }
-        if(flag){
-            for(int i=0;i<textFields.length;i++){
+        if(flag) {
+            for (int i = 0; i < textFields.length; i++) {
                 star[i].setVisible(false);
             }
         }
-        //TODO add student id validation
         return flag;
     }
 }
