@@ -110,48 +110,85 @@ this.studentID=studentID;
      */
     @Override
     protected boolean validateData() {
-        boolean flag = true;
-        for (int i = 0; i < textFields.length; i++) {
-            for (char c : textFields[i].getText().toCharArray()) {
-                if (Character.isLetter(c)) {
-                    star[i].setVisible(true);
-                    flag = false;
-                }
+        boolean flag=true;
+        int digitcount=0;
+        //-----for id----
+        for(char c:textFields[0].getText().toCharArray()) {// for id
+            if (Character.isDigit(c)) {
+                digitcount++;
             }
-            if (textFields[i].getText().contains("*") || textFields[i].getText().isEmpty()) {
-                star[i].setVisible(true);
+        }
+        if(!textFields[0].getText().contains("|")||!textFields[0].getText().contains("-")){
+            star[0].setVisible(true);
+            flag=false;
+        }
+        if(digitcount!=9){
+            star[0].setVisible(true);
+            flag=false;
+        }
+        //-----for id----
+
+        //---------for name--------
+        for(char c:textFields[1].getText().toCharArray()) {
+            if (Character.isDigit(c)) {
+                star[1].setVisible(true);
                 flag = false;
-            } else if (star[i].isVisible()) {
+            }
+        }
+        String checkiflowercase = textFields[1].getText();
+        checkiflowercase.toLowerCase();
+        if (textFields[1].getText() == checkiflowercase) {
+            star[1].setVisible(true);
+            flag=false;
+        }
+        //----------for name-------
+
+        //--------for surname-----
+        for(char c:textFields[1].getText().toCharArray()) {
+            if (Character.isDigit(c)) {
+                star[1].setVisible(true);
+                flag = false;
+            }
+        }
+        checkiflowercase = textFields[2].getText();
+        checkiflowercase.toLowerCase();
+        if (textFields[2].getText() == checkiflowercase) {
+            star[2].setVisible(true);
+        }
+        //-------for surname------
+
+        //------for telephone-------
+        digitcount=0;
+        int bracketscount=0;
+        for(char c:textFields[3].getText().toCharArray()) {
+            if (Character.isLetter(c)) {
+                star[3].setVisible(true);
+                flag = false;
+            }
+            if(Character.isDigit(c)){
+                digitcount++;
+            }
+            if(c=='('||c==')'||c=='-'||c=='+'){
+                bracketscount++;
+            }
+        }
+        if(digitcount<9||bracketscount!=4){
+            star[3].setVisible(true);
+            flag=false;
+        }
+        //------for telephone------
+        for(int i=0;i<textFields.length;i++){
+            if(textFields[i].getText().isEmpty()){
+                star[i].setVisible(true);
+                flag=false;
+            }
+        }
+        if(flag){
+            for(int i=0;i<textFields.length;i++){
                 star[i].setVisible(false);
             }
         }
-        if (!textFields[0].getText().contains("-") || textFields[0].getText().length() != 9) {
-            star[0].setVisible(true);
-            flag = false;
-        }
-        for (char c : textFields[0].getText().toCharArray()) {
-            if (Character.isLetter(c)) {
-                star[0].setVisible(true);
-                flag = false;
-            }
-        }
-        int countletters = 0;
-        int countdigits = 0;
-        for (char c : textFields[4].getText().toCharArray()) {
-            if (Character.isLetter(c)) {
-                countletters++;
-                if (Character.isDigit(c)) {
-                    countdigits++;
-                }
-            }
-        }
-        if (countdigits != 5 || countletters != 3) {
-            star[4].setVisible(true);
-            flag = false;
-        }
-        if (!textFields[4].getText().contains("/") || textFields[4].getText().length() != 9) {
-            flag = false;
-        }
+        //TODO add student id validation
         return flag;
     }
 }
