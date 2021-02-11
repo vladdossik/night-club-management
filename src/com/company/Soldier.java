@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ * Soldier class is used to to do all manipulations with objects of class Soldier.
+ * Serializable is used to write objects in a file and read from file.
+ * @see Serializable
+ */
 public class Soldier extends Person implements Serializable
 {
    protected String personalNum;
@@ -11,6 +16,15 @@ public class Soldier extends Person implements Serializable
     String[] info;
     JLabel[] labels;
     JLabel[] star;
+
+    /**
+     * Constructor
+     * @param id id of Soldier
+     * @param name name of Soldier
+     * @param surname surname of Soldier
+     * @param tel telephon of Soldier
+     * @param personalNum personal number of Soldier
+     */
     public Soldier(String id,String name,String surname,String tel,String personalNum)
     {
         super(id,name,surname,tel);
@@ -52,7 +66,19 @@ this.personalNum=personalNum;
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
     }
+
+    /**
+     *
+     * @param key is s serch key
+     * @return contains or not
+     */
+    @Override
     public boolean match(String key) { return super.match(key) || key.contains(this.personalNum); }
+
+    /**
+     *Method for writing information from objects info to textfields.
+     */
+    @Override
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {
             textFields[i].setText(info[i]);
@@ -61,6 +87,9 @@ this.personalNum=personalNum;
             }
         }
     }
+    /**
+     * Method to write all information from textfields to objects info.
+     */
     @Override
     protected void commit() {
         for (int i = 0; i < labels.length; i++) {
@@ -73,18 +102,50 @@ this.personalNum=personalNum;
         personalNum=info[4];
 
     }
+    /**
+     * Method for tracking entered data.
+     * It checks if the entered data matches with the pattern.
+     * @return is correct or not.
+     */
     @Override
     protected boolean validateData() {
         boolean flag=true;
         for (int i = 0; i <textFields.length; i++) {
-            if(textFields[i].getText().contains("*")||textFields[i].getText().isEmpty()){
+            if (textFields[i].getText().contains("*") || textFields[i].getText().isEmpty()) {
                 star[i].setVisible(true);
                 flag = false;
-            }
-            else if(star[i].isVisible()){
+            } else if (star[i].isVisible()) {
                 star[i].setVisible(false);
             }
+            if (!textFields[0].getText().contains("-") || textFields[0].getText().length() != 9) {
+                star[0].setVisible(true);
+                flag = false;
+            }
         }
+            for(char c:textFields[0].getText().toCharArray()){
+                if(Character.isLetter(c)){
+                    star[0].setVisible(true);
+                    flag=false;
+                }
+            }
+        int countletters = 0;
+        int countdigits = 0;
+        for (char c : textFields[4].getText().toCharArray()) {
+            if (Character.isLetter(c)) {
+                countletters++;
+                if (Character.isDigit(c)) {
+                    countdigits++;
+                }
+            }
+        }
+        if (countdigits != 7 || countletters != 3) {
+            star[4].setVisible(true);
+            flag = false;
+        }
+        if (!textFields[4].getText().contains("/") || textFields[4].getText().length() != 9) {
+            flag = false;
+        }
+
         return flag;
     }
 }

@@ -68,11 +68,10 @@ public abstract class ClubAbstractEntity extends JFrame implements Serializable
             }
         }
     }
-    //abstract methods
     /**
-     *method for matching object and search key match
+     *method for matching object and search key match.
      * @param key is a search key
-     * @return found of not
+     * @return found or not
      * */
     public abstract boolean match(String key);
 
@@ -88,7 +87,7 @@ public abstract class ClubAbstractEntity extends JFrame implements Serializable
     protected abstract void commit();
 
     /**
-     *Method for writing information from arraylist to textfields
+     *Method for writing information from objects info to textfields.
      */
     protected abstract void rollBack();
 }

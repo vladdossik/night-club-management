@@ -5,6 +5,11 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ * Person class is used to to do all manipulations with objects of class Person.
+ * Serializable is used to write objects in a file and read from file.
+ * @see Serializable
+ */
 public class Person extends ClubAbstractEntity implements Serializable
 {
     protected String id;
@@ -16,6 +21,12 @@ public class Person extends ClubAbstractEntity implements Serializable
     JLabel[] labels;
     JLabel[] star;
 
+    /**
+     * @param id id of Person
+     * @param name name of Person
+     * @param surname surname of Person
+     * @param tel telephone number of Person
+     */
     public Person(String id,String name,String surname,String tel)
     {
         this.id=id;
@@ -58,9 +69,11 @@ public class Person extends ClubAbstractEntity implements Serializable
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
     }
-    public String getName(){
-        return name;
-    }
+    /**
+     *
+     * @param key is s serch key
+     * @return contains or not
+     */
     @Override
     public boolean match(String key) {
         if(id.contains(key)||name.contains(key)||surname.contains(key)||tel.contains(key)){
@@ -68,21 +81,43 @@ public class Person extends ClubAbstractEntity implements Serializable
         }
         else return false;
     }
+    /**
+     * Method for tracking entered data.
+     * It checks if the entered data matches with the pattern.
+     * @return is correct or not.
+     */
     @Override
     protected boolean validateData() {
         boolean flag=true;
+
         for (int i = 0; i <textFields.length; i++) {
+
             if(textFields[i].getText().contains("*")||textFields[i].getText().isEmpty()){
                 star[i].setVisible(true);
                 flag = false;
             }
+            //TODO documentation
+            //TODO validatedata
 
             else if(star[i].isVisible()){
                 star[i].setVisible(false);
             }
         }
+        if(!textFields[0].getText().contains("-")||textFields[0].getText().length()!=9){
+            star[0].setVisible(true);
+            flag=false;
+        }
+        for(char c:textFields[0].getText().toCharArray()){
+            if(Character.isLetter(c)){
+                star[0].setVisible(true);
+                flag=false;
+            }
+        }
         return flag;
     }
+    /**
+     * Method to write all information from textfields to objects info.
+     */
     @Override
     protected void commit() {
         for (int i = 0; i < labels.length; i++) {
@@ -94,6 +129,9 @@ public class Person extends ClubAbstractEntity implements Serializable
         tel=info[3];
 
     }
+    /**
+     *Method for writing information from objects info to textfields.
+     */
     @Override
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {

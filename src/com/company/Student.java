@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
+/**
+ * Student class is used to to do all manipulations with objects of class Student.
+ * Serializable is used to write objects in a file and read from file.
+ * @see Serializable
+ */
 public class Student extends Person implements Serializable
 {
     protected String studentID;
@@ -11,6 +16,15 @@ public class Student extends Person implements Serializable
     JLabel[] labels;
     JTextField[] textFields;
     String[] info;
+
+    /**
+     *
+     * @param id id of Student
+     * @param name name of Student
+     * @param surname surname of Student
+     * @param tel telephone number of Student
+     * @param studentID identificational number of student
+     */
     public Student(String id, String name, String surname, String tel,String studentID)
     {
         super(id,name,surname,tel);
@@ -52,10 +66,20 @@ this.studentID=studentID;
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
     }
+    /**
+     *
+     * @param key is s serch key
+     * @return contains or not
+     */
+    @Override
     public boolean match(String key)
     {
         return super.match(key) || studentID.contains(key);
     }
+    /**
+     *Method for writing information from objects info to textfields.
+     */
+    @Override
     protected void rollBack() {
         for (int i = 0; i <textFields.length; i++) {
             textFields[i].setText(info[i]);
@@ -64,6 +88,9 @@ this.studentID=studentID;
             }
         }
     }
+    /**
+     * Method to write all information from textfields to objects info.
+     */
     @Override
     protected void commit() {
         for (int i = 0; i < labels.length; i++) {
@@ -76,18 +103,54 @@ this.studentID=studentID;
         studentID=info[4];
 
     }
+    /**
+     * Method for tracking entered data.
+     * It checks if the entered data matches with the pattern.
+     * @return is correct or not.
+     */
     @Override
     protected boolean validateData() {
-        boolean flag=true;
-        for (int i = 0; i <textFields.length; i++) {
-            if(textFields[i].getText().contains("*")||textFields[i].getText().isEmpty()){
+        boolean flag = true;
+        for (int i = 0; i < textFields.length; i++) {
+            for (char c : textFields[i].getText().toCharArray()) {
+                if (Character.isLetter(c)) {
+                    star[i].setVisible(true);
+                    flag = false;
+                }
+            }
+            if (textFields[i].getText().contains("*") || textFields[i].getText().isEmpty()) {
                 star[i].setVisible(true);
                 flag = false;
-            }
-
-            else if(star[i].isVisible()){
+            } else if (star[i].isVisible()) {
                 star[i].setVisible(false);
             }
+        }
+        if (!textFields[0].getText().contains("-") || textFields[0].getText().length() != 9) {
+            star[0].setVisible(true);
+            flag = false;
+        }
+        for (char c : textFields[0].getText().toCharArray()) {
+            if (Character.isLetter(c)) {
+                star[0].setVisible(true);
+                flag = false;
+            }
+        }
+        int countletters = 0;
+        int countdigits = 0;
+        for (char c : textFields[4].getText().toCharArray()) {
+            if (Character.isLetter(c)) {
+                countletters++;
+                if (Character.isDigit(c)) {
+                    countdigits++;
+                }
+            }
+        }
+        if (countdigits != 5 || countletters != 3) {
+            star[4].setVisible(true);
+            flag = false;
+        }
+        if (!textFields[4].getText().contains("/") || textFields[4].getText().length() != 9) {
+            flag = false;
         }
         return flag;
     }

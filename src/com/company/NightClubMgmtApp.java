@@ -53,9 +53,7 @@ selectAction();
 
     /**
      *Club member search method.
-     * <p></p>
      *if the user types exit, the file write method is called and the program is closed.
-     * <p></p>
      *If the user enters a search key, then depending on the entered value, a club member or a message stating that not found is displayed.
      */
     private void manipulateDB()
@@ -86,8 +84,8 @@ selectAction();
     }
 
     /**
-     *Method for adding new users. User can choose which member he can to add.
-     * Available members:Person, Student,Soldier
+     *Method for adding new clubbers. User can choose which member he can to add.
+     * Available members:Person, Student, Soldier
      * After selecting a member, a window will appear to fill in his data
      */
     private void addClubber(){
@@ -100,15 +98,13 @@ selectAction();
                 new String[]{"Person", "Student","Soldier"},
                 "default");
         if(select==0){
-
-            clubbers.add(new Person(" "," "," "," "));
-            System.out.println(clubbers.get(clubbers.size()-1));
+            clubbers.add(new Person("","","",""));
         }
         else if(select==1){
-            clubbers.add(new Student(" ", " ", " "," ", " "));
+            clubbers.add(new Student("", "", "","", ""));
         }
         else if(select==2){
-            clubbers.add(new Soldier(" ", " ", " "," ", " "));
+            clubbers.add(new Soldier("", "", "","", ""));
         }
         clubbers.get(clubbers.size()-1).setVisible(true);
             clubbers.get(clubbers.size() - 1).cancelButton.setVisible(false);
