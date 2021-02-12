@@ -102,7 +102,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         }
         else star[1].setVisible(false);
 
-        if(!textFields[2].getText().matches( "[A-Z][a-z]*" )){
+        if(!textFields[2].getText().matches( "^[A-Z]{1}['a-z’]{1}([A-Za-z’]{0,1})?([-A-Za-z]{0,1})?([a-z]{0,2})?([-a-z]{0,1})?([A-Za-z]{0,1})?([a-z]{0,1})?([’]{0,1})?([A-Z]{0,1})?([a-z]{0,6})?$" )){
             star[2].setVisible(true);
         }
         else star[2].setVisible(false);
