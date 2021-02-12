@@ -21,7 +21,10 @@ public class Person extends ClubAbstractEntity implements Serializable
     String[] info=new String[4];
     JLabel[] labels;
     JLabel[] star;
-
+    JPanel container;
+    JPanel labelPanel;
+    JPanel fieldPanel;
+    JPanel wrapper;
     /**
      * @param id id of Person
      * @param name name of Person
@@ -40,7 +43,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         info[3]=tel;
          labels= new JLabel[]{new JLabel("Id", JLabel.RIGHT), new JLabel("Name", JLabel.RIGHT), new JLabel("Surname", JLabel.RIGHT), new JLabel("Tel", JLabel.RIGHT)};
         textFields=new JTextField[labels.length];
-        JPanel container=new JPanel();
+        container=new JPanel();
         star=new JLabel[labels.length];
         for (int i = 0; i < labels.length; i++) {
             star[i]=new JLabel("*",JLabel.RIGHT);
@@ -48,8 +51,8 @@ public class Person extends ClubAbstractEntity implements Serializable
         }
         container.setLayout(new BorderLayout(5,5));
         container.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
-        JPanel labelPanel = new JPanel(new GridLayout(4, 1, 1, 5));
-        JPanel fieldPanel = new JPanel(new GridLayout(4, 1, 1, 5));
+        labelPanel= new JPanel(new GridLayout(4, 1, 1, 5));
+        fieldPanel= new JPanel(new GridLayout(4, 1, 1, 5));
         JPanel starPanel=new JPanel(new GridLayout(4, 1, 1, 5));
         container.add(labelPanel, BorderLayout.WEST);
         container.add(fieldPanel, BorderLayout.CENTER);
@@ -66,7 +69,7 @@ public class Person extends ClubAbstractEntity implements Serializable
             fieldPanel.add(p);
         }
         setSize(450,220);
-        JPanel wrapper=new JPanel(new GridLayout());
+         wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
     }
@@ -104,7 +107,7 @@ public class Person extends ClubAbstractEntity implements Serializable
         }
         else star[2].setVisible(false);
 
-        if(!textFields[3].getText().matches("^\\+\\([0-9]{1,3}\\)[0-9]{1,3}[-]{1}[0-9]{7}$")){
+        if(!textFields[3].getText().matches("^\\+\\([1-9]{1,3}\\)[0-9]{1,3}[-]{1}[0-9]{7}$")){
             star[3].setVisible(true);
         }
         else star[3].setVisible(false);

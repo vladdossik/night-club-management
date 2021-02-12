@@ -29,7 +29,7 @@ public class Student extends Person implements Serializable
     {
         super(id,name,surname,tel);
 this.studentID=studentID;
-        info=new String[5];
+    info=new String[5];
         info[0]=id;
         info[1]=name;
         info[2]=surname;
@@ -62,12 +62,12 @@ this.studentID=studentID;
             p.add(textFields[i]);
             fieldPanel.add(p);
         }
+        setSize(450,220);
         JPanel wrapper=new JPanel(new GridLayout());
         wrapper.add(container,new GridBagConstraints());
         addToCenter(wrapper);
     }
     /**
-     *
      * @param key is s serch key
      * @return contains or not
      */
