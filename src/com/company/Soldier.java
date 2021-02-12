@@ -110,104 +110,35 @@ this.personalNum=personalNum;
     @Override
     protected boolean validateData() {
         boolean flag=true;
-        int digitcount=0;
-        //-----for id----
-        for(char c:textFields[0].getText().toCharArray()) {// for id
-            if (Character.isDigit(c)) {
-                digitcount++;
-            }
-        }
-        if(!textFields[0].getText().contains("|")||!textFields[0].getText().contains("-")){
+        //TODO check for all textfields for all classes
+        if(!textFields[0].getText().matches("^[0-9]{1}[-]{1}[0-9]{7}[|]{1}[1-9]{1}$")){
             star[0].setVisible(true);
-            flag=false;
         }
-        if(digitcount!=9){
-            star[0].setVisible(true);
-            flag=false;
-        }
-        //-----for id----
-
-        //---------for name--------
-        for(char c:textFields[1].getText().toCharArray()) {
-            if (Character.isDigit(c)) {
-                star[1].setVisible(true);
-                flag = false;
-            }
-        }
-        String checkiflowercase = textFields[1].getText();
-        checkiflowercase.toLowerCase();
-        if (textFields[1].getText() == checkiflowercase) {
+        else star[0].setVisible(false);
+        if(!textFields[1].getText().matches( "[A-Z][a-z]*" )){
             star[1].setVisible(true);
-            flag=false;
         }
-        //----------for name-------
+        else star[1].setVisible(false);
 
-        //--------for surname-----
-        for(char c:textFields[1].getText().toCharArray()) {
-            if (Character.isDigit(c)) {
-                star[1].setVisible(true);
-                flag = false;
-            }
-        }
-        checkiflowercase = textFields[2].getText();
-        checkiflowercase.toLowerCase();
-        if (textFields[2].getText() == checkiflowercase) {
+        if(!textFields[2].getText().matches( "[A-Z][a-z]*" )){
             star[2].setVisible(true);
         }
-        //-------for surname------
+        else star[2].setVisible(false);
 
-        //------for telephone-------
-        digitcount=0;
-        int bracketscount=0;
-        for(char c:textFields[3].getText().toCharArray()) {
-            if (Character.isLetter(c)) {
-                star[3].setVisible(true);
-                flag = false;
-            }
-            if(Character.isDigit(c)){
-                digitcount++;
-            }
-            if(c=='('||c==')'||c=='-'||c=='+'){
-                bracketscount++;
-            }
-        }
-        if(digitcount<9||bracketscount!=4){
+        if(!textFields[3].getText().matches("^\\+\\([0-9]{1,3}\\)[0-9]{1,3}[-]{1}[0-9]{7}$")){
             star[3].setVisible(true);
-            flag=false;
         }
-        //------for telephone------
-        for(int i=0;i<textFields.length;i++){
-            if(textFields[i].getText().isEmpty()){
-                star[i].setVisible(true);
+        else star[3].setVisible(false);
+        if(!textFields[4].getText().matches("^[O,C,R]{1}/[0-9]{7}$")) {
+            star[4].setVisible(true);
+        }
+        else star[4].setVisible(false);
+
+        for(int i=0;i<star.length;i++){
+            if(star[i].isVisible()){
                 flag=false;
             }
         }
-        //-----for telephone----
-
-        //-----for personal num----
-        int letterscount=0;
-        digitcount=0;
-        for(char c:textFields[4].getText().toCharArray()){
-            if(c=='C'||c=='O'||c=='R'){
-                if(!Character.isLowerCase(c)&&!Character.isDigit(c)){
-                   letterscount++;
-                }
-                if(Character.isDigit(c)){
-                    digitcount++;
-                }
-            }
-        }
-        if(letterscount!=3||digitcount!=7){
-            flag=false;
-            star[4].setVisible(true);
-        }
-        //-----for person num------
-        if(flag){
-            for(int i=0;i<textFields.length;i++){
-                star[i].setVisible(false);
-            }
-        }
-        //TODO add personalNum validation
         return flag;
     }
 }
