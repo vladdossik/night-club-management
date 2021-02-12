@@ -125,7 +125,7 @@ this.studentID=studentID;
         }
         else star[2].setVisible(false);
 
-        if(!textFields[3].getText().matches("^\\+\\([0-9]{1,3}\\)[0-9]{1,3}[-]{1}[0-9]{7}$")){
+        if(!textFields[3].getText().matches("^\\+\\([1-9]{1,3}\\)[0-9]{1,3}[-]{1}[0-9]{7}$")){
             star[3].setVisible(true);
         }
         else star[3].setVisible(false);
