@@ -111,7 +111,6 @@ this.studentID=studentID;
     @Override
     protected boolean validateData() {
         boolean flag=true;
-        //TODO check for all textfields for all classes
         if(!textFields[0].getText().matches("^[0-9]{1}[-]{1}[0-9]{7}[|]{1}[1-9]{1}$")){
             star[0].setVisible(true);
         }
